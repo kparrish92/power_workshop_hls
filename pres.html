@@ -33,6 +33,7 @@ class: center, middle, inverse, title-slide
 
 
 
+
 class: title-slide-section, middle
 # Set up
 
@@ -215,7 +216,7 @@ Button et al. (2013)
 
 - Effect sizes are one way to measure differences between groups.
 
-&lt;img src="img/cohens_d.jpg" width="280" /&gt;
+&lt;img src="img/cohens_d.jpg" width="17" /&gt;
 
 ---
 
@@ -428,7 +429,9 @@ class: title-slide-section, middle
 
 ---
 
+.large[
 **Activity 1 - Calculating Effect Sizes**
+]
 
 Let's fill out this table, starting with the **effect size** column.
 
@@ -441,7 +444,9 @@ Let's fill out this table, starting with the **effect size** column.
 
 ---
 
+.large[
 **Activity 1 - Calculating Effect Sizes (Solution)**
+]
 
 We can use our `effect_size` function from earlier to calculate each effect size. 
 
@@ -472,7 +477,9 @@ effect_size(mean1 = 34, mean2 = 30, sd1 = 20, sd2 = 20) # comparison 3
 
 ---
 
+.large[
 **Activity 2 - How many participants are needed?**
+]
 
 Now that we have some information about the size of each effect, let's figure out how many participants we need to detect each of these effects at a power level of .8. 
 Choose **one** of these three and create a power curve.
@@ -485,7 +492,9 @@ Choose **one** of these three and create a power curve.
 
 ---
 
+.large[
 **Activity 2 - How many participants are needed? (Large, d = .8)**
+]
 
 First, we simulate our sampling distribution. 
 
@@ -499,8 +508,9 @@ s2_l = rnorm(n = 10000, mean = 30, sd = 20)
 
 ---
 
+.large[
 **Activity 2 - How many participants are needed? (Large, d = .8)**
-
+]
 .pull-left[
 Next, we decide our samples to try, and re-use the `plot_power_curve_ul` function to create a power curve plot. 
 
@@ -524,7 +534,9 @@ plot_power_curve_ul(s1 = s1_l, s2 = s2_l, i = 1000, sample_sizes)
 
 ---
 
+.large[
 **Activity 2 - How many participants are needed? (Medium, d = .5)**
+]
 
 Let's repeat the process for the medium effect.
 
@@ -540,14 +552,16 @@ s2_m = rnorm(n = 10000, mean = 30, sd = 20)
 
 ---
 
+.large[
 **Activity 2 - How many participants are needed? (Medium, d = .5)**
+]
 
 .pull-left[
 Again, we decide our samples to try, and re-use the `plot_power_curve_ul` function to create a power curve plot. 
 
 Given that we needed 30 for the large effect (d = .8), we will keep our sample sizes the same.
 
-The plot shows we need around **60** participants per group to achieve a power level of .80.
+The plot shows we need around **70** participants per group to achieve a power level of .80.
 ]
 
 --
@@ -565,7 +579,9 @@ plot_power_curve_ul(s1 = s1_m, s2 = s2_m, i = 1000, sample_sizes)
 
 ---
 
+.large[
 **Activity 2 - How many participants are needed? (Small, d = .2)**
+]
 
 Finally, let's see how many we need for a small effect (d = .2).
 
@@ -581,7 +597,9 @@ s2_s = rnorm(n = 10000, mean = 30, sd = 20)
 
 ---
 
+.large[
 **Activity 2 - How many participants are needed? (Small, d = .2)**
+]
 
 .pull-left[
 We will again re-use the `plot_power_curve_ul` function to create a power curve plot. 
@@ -608,7 +626,9 @@ plot_power_curve_ul(s1 = s1_s, s2 = s2_s, i = 1000, sample_sizes)
 
 ---
 
+.large[
 **Activity 2 - How many participants are needed? (Small, d = .2)**
+]
 
 .pull-left[
 Let's increase the samples further, this time in multiples of 25 from 25-400.
@@ -642,10 +662,9 @@ plot_power_curve_ul(s1 = s1_s, s2 = s2_s, i = 1000, sample_sizes)
 |   | Mean group 1 (sd) | Mean group 2 (sd) | Effect Size | Needed number of participants |
 |---|-------------------|-------------------|-------------|-------------------------------|
 | 1 | 46 (20)           | 30 (20)           |   .8        |    30                       |
-| 2 | 40 (20)           | 30 (20)           |   .5        |    60                       |
+| 2 | 40 (20)           | 30 (20)           |   .5        |    70                       |
 | 3 | 34 (20)           | 30 (20)           |   .2        |   400 
 |
-
 
 
 ---
@@ -659,9 +678,8 @@ Ensuring higher powered studies helps reduce false negatives and promotes replic
 
 This workshop uses the t-test to run a power analysis, but other statistical tests may also be used.
 
-All the code and materials used to create this presentation, the activities and all the plots are available here: LINK 
+All the code and materials used to create this presentation, the activities and all the plots are available [here](https://github.com/kparrish92/power_workshop_hls)
 ]
-
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/remark/0.14.0/remark.min.js"></script>

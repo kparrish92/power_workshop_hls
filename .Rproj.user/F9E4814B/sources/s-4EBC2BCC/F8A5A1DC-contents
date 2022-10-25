@@ -1,0 +1,95 @@
+source(here::here("scripts", "00_libs.R"))
+
+run_tosts = function(number_stim, phoneme)
+{
+  vot_voiceless = vot_tidy %>%
+    filter(!is.na(vot)) %>%
+    #    filter(voicing == "voiceless") %>%
+    filter(bilingual == "FALSE") %>%
+    filter(phoneme == phoneme)
+
+  participants = vot_voiceless %>%
+    group_by(subject) %>%
+    summarize(n = n())
+
+
+  power_df = matrix(nrow = 100, ncol= 2)
+  all_part_df = matrix(nrow = nrow(participants), ncol = 3)
+
+  for(thisRun in 1:nrow(all_part_df)){
+
+    vot_voiceless_df = vot_voiceless %>%
+      filter(subject == participants$subject[thisRun])
+
+
+    for (i in 1:100) {
+
+      sample_df = vot_voiceless_df %>%
+        sample_n(number_stim)
+
+
+      t_e = TOSTER::TOSTtwo(m1=mean(vot_voiceless_df$vot),
+                            m2=mean(sample_df$vot),
+                            sd1=sd(vot_voiceless_df$vot),
+                            sd2=sd(sample_df$vot),
+                            n1=nrow(vot_voiceless_df),
+                            n2=nrow(sample_df),
+                            low_eqbound_d=-0.48,
+                            high_eqbound_d=0.48, alpha = 0.05,
+                            var.equal = TRUE)
+
+      power_df[i] = min(t_e[["TOST_p1"]], t_e[["TOST_p2"]])
+    }
+
+    all_part_df[thisRun, 1] = sum(power_df[,1] < .05)
+    all_part_df[thisRun, 2] = participants$subject[thisRun]
+    all_part_df[thisRun, 3] = number_stim
+  }
+
+  return(all_part_df)
+}
+
+
+run_t.tests = function(number_stim, phoneme)
+{
+
+  vot_voiceless = vot_tidy %>%
+    filter(!is.na(vot)) %>%
+    #    filter(voicing == "voiceless") %>%
+    filter(bilingual == "FALSE") %>%
+    filter(phoneme == phoneme)
+
+  participants = vot_voiceless %>%
+    group_by(subject) %>%
+    summarize(n = n())
+
+
+  power_df = matrix(nrow = 100, ncol= 2)
+  all_part_df = matrix(nrow = nrow(participants), ncol = 3)
+
+  for(thisRun in 1:nrow(all_part_df)){
+
+    vot_voiceless_df = vot_voiceless %>%
+      filter(subject == participants$subject[thisRun])
+
+
+    for (i in 1:100) {
+
+      sample_df = vot_voiceless_df %>%
+        sample_n(number_stim)
+
+      t = t.test(vot_voiceless_df$vot, sample_df$vot)
+
+
+      power_df[i] = t$p.value
+    }
+
+    all_part_df[thisRun, 1] = sum(power_df[,1] < .05)
+    all_part_df[thisRun, 2] = participants$subject[thisRun]
+    all_part_df[thisRun, 3] = number_stim
+  }
+
+  return(all_part_df)
+}
+
+

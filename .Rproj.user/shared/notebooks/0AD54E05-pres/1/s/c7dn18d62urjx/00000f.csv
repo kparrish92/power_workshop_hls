@@ -1,0 +1,4 @@
+"0","knitr::include_graphics(here(""img"", ""cohens_d.png""))"
+"2","Error in knitr::include_graphics(here(""img"", ""cohens_d.png"")) : 
+  Cannot find the file(s): ""/Users/kyleparrish/Documents/GitHub/power_workshop_hls/img/cohens_d.png""
+"

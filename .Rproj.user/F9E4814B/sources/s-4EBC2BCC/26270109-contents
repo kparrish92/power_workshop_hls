@@ -1,0 +1,28 @@
+
+### TOSTER TOSTtwo is a two sample test of equivalence (between subjects)
+
+mtcars1 = mtcars %>% 
+  slice(1:16) %>% 
+  mutate("grp" = 1)
+
+mtcars2 = mtcars %>% 
+  slice(17:32) %>% 
+  mutate("grp" = 2)
+
+mtcars3 = rbind(mtcars1, mtcars2)
+
+TOSTER::TOSTtwo(m1=mean(mtcars1$mpg),
+                      m2=mean(mtcars2$mpg),
+                      sd1=sd(mtcars1$mpg),
+                      sd2=sd(mtcars2$mpg),
+                      n1=nrow(mtcars1),
+                      n2=nrow(mtcars1),
+                      low_eqbound_d=-0.48,
+                      high_eqbound_d=0.48, alpha = 0.05,
+                      var.equal = TRUE)
+
+
+TOSTER::dataTOSTtwo(mtcars3, mpg, group = "grp", var_equal = FALSE, low_eqbound = -0.5,
+            high_eqbound = 0.5, eqbound_type = "d", alpha = 0.05,
+            desc = FALSE, plots = FALSE, low_eqbound_d = -999999999,
+            high_eqbound_d = -999999999)

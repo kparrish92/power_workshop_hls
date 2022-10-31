@@ -1,4 +1,5 @@
-library(here)
+source(here::here("scripts", "01_helpers.R"))
+
 
 ### This script generates the plots used in the presentation
 
@@ -61,10 +62,11 @@ full %>%
   ggplot(aes(x = es, y = n, color = as.factor(is_sig))) + geom_jitter(alpha = .4) +
   geom_vline(xintercept = .4, linetype = "dashed", alpha = .8, color = 'red') + 
   theme_minimal() + 
-  scale_color_manual(values = c("grey", "#efa311")) + 
+  scale_color_manual(values = c("grey", "#efa311"), name = "") + 
   labs(title = "Results of 2000 simulated t-tests",
        subtitle = "Replication of Brysbaert (2020)",
        caption = "Showing the results of all studies") + 
+  xlim(-2,2) +
 ggsave(here("img", "2k_sim_all.png"), dpi = 1200)
 
 
@@ -72,14 +74,9 @@ full %>%
   filter(is_sig == "Significant") %>% 
   ggplot(aes(x = es, y = n, color = as.factor(is_sig))) + geom_jitter(alpha = .4) +
   geom_vline(xintercept = .4, linetype = "dashed", alpha = .8, color = "red") + theme_minimal() + 
-  scale_color_manual(values = c("#efa311")) + 
+  scale_color_manual(values = c("#efa311"), name = "") + 
   labs(title = "Results of 2000 simulated t-tests",
        subtitle = "Replication of Brysbaert (2020)",
        caption = "Showing significant results only") + 
+  xlim(-2,2) +
   ggsave(here("img", "2k_sim_sig.png"), dpi = 1200)
-
-
-
-full2 %>% 
-  ggplot(aes(x = es, y = n, color = as.factor(is_sig))) + geom_jitter(alpha = .4) +
-  geom_vline(xintercept = .4)

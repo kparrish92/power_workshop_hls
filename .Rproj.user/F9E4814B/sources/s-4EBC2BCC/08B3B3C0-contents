@@ -57,13 +57,13 @@ Paste the code into an R script on [Rstudio](https://www.rstudio.com) or [Rstudi
 
 .large[
 .pull-left[
-- In Rstudio cloud, navigate to "Your Workspace" and open a New Rstudio project.
+In Rstudio cloud, navigate to "Your Workspace" and open a New Rstudio project.
 
-- Click "file", "new file" and "R script".
+Click "file", "new file" and "R script".
 
-- This will open a script called "Untitled.R"
+This will open a script called "Untitled.R"
 
-- You can copy-paste all code from these slides directly into this script, and run any lines of it by highlighting and clicking run (or CTRL/Commnand + Enter)
+You can copy-paste all code from these slides directly into this script, and run any lines of it by highlighting and clicking run (or CTRL/Commnand + Enter)
 ]
 ]
 ---
@@ -71,6 +71,21 @@ Paste the code into an R script on [Rstudio](https://www.rstudio.com) or [Rstudi
 background-image: url(./img/r_studio_cloud.png)
 background-size: contain
 
+---
+
+# Install the tidyverse package
+
+.large[
+.pull-left[
+If you are using R for the first time, you might need to install the tidyverse package.
+
+To do so, click "*packages*" in the lower right quadrant of your screen, then "*install*"
+
+Now, type "tidyverse" in the search box and click install. 
+
+Installation should take less than a minute, and you're good to go! 
+]
+]
 
 ---
 
@@ -213,9 +228,13 @@ Button et al. (2013)
 
 # Effect sizes 
 
-- Effect sizes are one way to measure differences between groups.
+Cohen's D is a measure of effect size and measures differences between groups.
 
-```{r, echo = FALSE, dpi = 1200}
+Cohen (1988) suggested as a guideline that a small effect size is d = .2, a medium effect size is d = .5, and a large effect is d = .8.
+
+Plonsky & Oswald (2015) determined that effect sizes are generally higher in language reseach; (Small = .4, Medium = .7, Large = .8)
+
+```{r, echo = FALSE}
 knitr::include_graphics(here("img", "cohens_d.jpg"))
 ```
 
@@ -239,11 +258,11 @@ class: title-slide-section, middle
 
 # Simulate the sampling distribution 
 
-- We often assume we are taking a sample from a greater distribution. 
+In research, we often assume we are taking a sample from a greater distribution. 
 
-- Here, we simulate two underlying distributions, one with a mean of 38 (sd = 20) and the other with a mean of 30 (sd = 20).
+Here, we simulate two underlying distributions, one with a mean of 38 (sd = 20) and the other with a mean of 30 (sd = 20).
 
-- The actual effect size of these distributions is d = .4 - a small effect.
+The actual effect size of these distributions is d = .4 - a small effect.
 
 ```{r}
 library(tidyverse)
@@ -366,14 +385,19 @@ class: title-slide-section, middle
 
 ---
 
-```{r}
+**Let's run it**
 
+.pull-left[
+```{r, fig.retina = 3}
 sample_sizes = c(10, 20, 30, 40, 50, 60, 70, 80)
-
-plot_power_curve_ul(s1, s2, i = 1000, sample_sizes)
-
 ```
+]
 
+.pull-right[
+```{r, fig.retina = 3}
+plot_power_curve_ul(s1, s2, i = 1000, sample_sizes)
+```
+]
 ---
 
 class: title-slide-section, middle
@@ -381,15 +405,22 @@ class: title-slide-section, middle
 
 ---
 
-```{r}
+**Trying larger sample sizes**
+
+.pull-left[
+```{r, fig.retina = 3}
 # Trying larger sample sizes
 sample_sizes = c(10, 20, 30, 40, 50, 60, 
                  70, 80, 90, 100, 110, 120, 
                  130, 140, 150)
+```
+]
 
+.pull-right[
+```{r, fig.retina = 3}
 plot_power_curve_ul(s1, s2, i = 1000, sample_sizes)
 ```
-
+]
 ---
 
 class: title-slide-section, middle
@@ -435,7 +466,7 @@ Let's fill out this table, starting with the **effect size** column.
 
 We can use our `effect_size` function from earlier to calculate each effect size. 
 
-```{r}
+```{r, fig.retina = 4}
 effect_size(mean1 = 46, mean2 = 30, sd1 = 20, sd2 = 20) # comparison 1
 
 effect_size(mean1 = 40, mean2 = 30, sd1 = 20, sd2 = 20) # comparison 2
@@ -466,7 +497,7 @@ Choose **one** of these three and create a power curve.
 
 First, we simulate our sampling distribution. 
 
-```{r}
+```{r, fig.retina = 3}
 set.seed(1)
 
 s1_l = rnorm(n = 10000, mean = 46, sd = 20)
@@ -489,7 +520,7 @@ The plot shows we need around **30** participants per group to achieve a power l
 --
 
 .pull-right[
-```{r}
+```{r, fig.retina = 4}
 # Trying larger sample sizes
 sample_sizes = c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120)
 plot_power_curve_ul(s1 = s1_l, s2 = s2_l, i = 1000, sample_sizes)
@@ -506,7 +537,7 @@ Let's repeat the process for the medium effect.
 
 Again, we simulate our sampling distribution. 
 
-```{r}
+```{r, fig.retina = 3}
 set.seed(1)
 
 s1_m = rnorm(n = 10000, mean = 40, sd = 20)
@@ -530,7 +561,7 @@ The plot shows we need around **70** participants per group to achieve a power l
 --
 
 .pull-right[
-```{r}
+```{r, fig.retina = 3}
 sample_sizes = c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120)
 
 plot_power_curve_ul(s1 = s1_m, s2 = s2_m, i = 1000, sample_sizes)
@@ -547,7 +578,7 @@ Finally, let's see how many we need for a small effect (d = .2).
 
 Again, we simulate our sampling distribution. 
 
-```{r}
+```{r, fig.retina = 3}
 set.seed(1)
 
 s1_s = rnorm(n = 10000, mean = 34, sd = 20)
@@ -566,16 +597,18 @@ We will again re-use the `plot_power_curve_ul` function to create a power curve 
 This is a pretty small effect, so it's likely we will need more than 100 participants per group. Let's try 10-200 in multiples of 10.
 
 The plot shows we need more than **200** participants per group to achieve a power level of .80.
-]
 
---
 
-.pull-right[
-```{r}
+```{r, fig.retina = 3}
 set.seed(1)
 sample_sizes = c(10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 
                  110, 120, 130, 140, 150, 160, 170, 180, 190, 200)
+```
+]
 
+--
+.pull-right[
+```{r, fig.retina = 3}
 plot_power_curve_ul(s1 = s1_s, s2 = s2_s, i = 1000, sample_sizes)
 ```
 ]
@@ -591,20 +624,20 @@ Let's increase the samples further, this time in multiples of 25 from 25-400.
 
 This plot suggests we need a hefty **400 participants per group** to reliably detect an effect size of .2.
 
-Yikes.
+```{r, fig.retina = 3}
+set.seed(1)
+sample_sizes = c(50, 100, 150, 200,
+                 250, 300, 350, 400,
+                 450, 500)
+```
 ]
 
 --
 
 .pull-right[
-```{r}
-set.seed(1)
-sample_sizes = c(25, 50, 75, 100,
-                 125, 150, 175, 200,
-                 225, 250, 275, 300,
-                 325, 350, 375, 400)
-
-plot_power_curve_ul(s1 = s1_s, s2 = s2_s, i = 1000, sample_sizes)
+```{r, fig.retina = 3, warning=FALSE, message=FALSE}
+plot_power_curve_ul(s1 = s1_s, s2 = s2_s, i = 1000, sample_sizes) + 
+  scale_x_continuous(breaks = seq(0, 500, by = 50))
 ```
 ]
 

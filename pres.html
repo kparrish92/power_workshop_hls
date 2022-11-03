@@ -265,6 +265,7 @@ The actual effect size of these distributions is d = .4 - a small effect.
 
 
 ```r
+# Load libraries and 
 library(tidyverse)
 set.seed(1)
 
@@ -307,6 +308,15 @@ effect_size(mean1, mean2, sd1, sd2)
 ## [1] 0.4
 ```
 
+```r
+# We can also manually specify each mean and sd 
+effect_size(mean1 = 38, mean2 = 30, sd1 = 20, sd2 = 20)
+```
+
+```
+## [1] 0.4
+```
+
 ---
 
 # Running a power analysis
@@ -340,7 +350,7 @@ power_analysis_single_ul = function(s1, s2, i, n1, n2)
 }
 
 # Run the function to check our power
-power_analysis_single_ul(s1, s2, 100, 10, 10)
+power_analysis_single_ul(s1, s2, i = 100, n1 = 10, n2 = 10)
 ```
 
 ```
@@ -579,8 +589,8 @@ Again, we simulate our sampling distribution.
 
 
 ```r
-set.seed(1)
-
+set.seed(1) # this is to make the simulation exactly reproducible.
+# Resimulate sampling distribution
 s1_m = rnorm(n = 10000, mean = 40, sd = 20)
 s2_m = rnorm(n = 10000, mean = 30, sd = 20)
 ```
